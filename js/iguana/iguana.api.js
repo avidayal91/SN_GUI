@@ -23,7 +23,7 @@ var Iguana = (function(Iguana, $, undefined){
 				}
 			})
 			.fail(function(xhr, status, err){
-				console.log("Request: "+ request+ " -> SuccessResponse: "+ response);
+				console.log("Request: "+ request+ " -> ErrorResponse: "+ response);
 				if(callback){
 					callback(request, response);
 				}

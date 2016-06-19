@@ -3,7 +3,7 @@ var Iguana = (function(Iguana, $, undefined){
 	//configurations data here
 	Iguana.server = "127.0.0.1:7778";
 	Iguana.hasLocalStorage = _checkDOMenabled();
-    Iguana.network = "iguana-key";
+    Iguana.network = "main";
 
 	return Iguana;
 })(Iguana || {}, jQuery);
