@@ -31,7 +31,7 @@ var Iguana = (function(Iguana, $, undefined){
 		}
 	}
 
-	Iguana.validateRequest function(request){
+	Iguana.validateRequest = function(request){
 		if(typeof(request.method) == 'undefined'){
 			console.log("Request method not specified.");
 			return false;
