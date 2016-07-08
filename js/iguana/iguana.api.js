@@ -4,29 +4,43 @@ var Iguana = (function(Iguana, $, undefined){
 	var URL = Iguana.server;
 
 	Iguana.callRPC = function(request, callback){
-		request = JSON.parse(request);
-		console.log("Requesting..."+ request);
+		if(typeof(request) != 'object')
+			request = JSON.parse(request);
+		// console.log("Requesting..."+ request);
 
-		if(!validateRequest(request)){
+		if(!Iguana.validateRequest(request)){
 			//show alert
+			console.log();
 		}
 		else{
+			$.support.cors = true;
+			URL = getURLFromRequest(request);
+			console.log("Calling.... "+URL + " with request "+ request);
 			$.ajax({
+				crossDomain: true,
 				url: URL,
-				method: "POST",
-				data: request
+				dataType: "json",
+				type: "POST",
+				timeout: 30000,
+				data: JSON.stringify(request)
 			})
 			.done(function(response){
 				console.log("Request: "+ request+ " -> SuccessResponse: "+ response);
-				if(callback){
-					callback(request, response);
+				if(response.error === undefined){
+					if(callback){
+						callback(request, response);
+					}
+				}
+				else{
+					console.log(response.error);
+					alert(response.error);
 				}
 			})
 			.fail(function(xhr, status, err){
-				console.log("Request: "+ request+ " -> ErrorResponse: "+ response);
-				if(callback){
-					callback(request, response);
-				}
+				console.log("Request: "+ request+ " -> ErrorResponse: "+ err);
+				// if(callback){
+				// 	callback(request, err);
+				// }
 			});
 		}
 	}
@@ -39,6 +53,12 @@ var Iguana = (function(Iguana, $, undefined){
 		return true;
 	}
 
+	function getURLFromRequest(request){
+		var url = Iguana.server;
+		url += request.agent + "/";
+		url += request.method + "/";
+		return url;
+	}
 
 	return Iguana;
 	

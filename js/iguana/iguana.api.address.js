@@ -42,4 +42,6 @@ var Iguana = (function(Iguana, $, undefined){
 		}
 	};
 
+	return Iguana;
+
 }(Iguana || {}, jQuery));
